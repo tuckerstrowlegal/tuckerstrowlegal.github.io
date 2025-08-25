@@ -95,9 +95,9 @@
     .lead{ color: var(--muted); font-size: clamp(1rem, 2vw, 1.1rem); }
     .cta-row{ display:flex; flex-wrap:wrap; gap:12px; margin-top:20px; }
     .hero-card{ background: var(--card); border:1px solid var(--border); padding:18px; border-radius:16px; }
-    .hero-headshot {float: right; width: 220px; height: 220px; margin-left: 24px; margin-bottom: 10px; border-radius: 50%; overflow: hidden; box-shadow: 0 8px 22px rgba(0, 0, 0, 0.15); }
-    .hero-headshot img {display: block; width: 100%; height: 100%; object-fit: cover; }
-    @media (max-width: 768px){ .hero-headshot { float: none; display: block; margin: 0 auto 20px; width: 160px; height: 160px; } }
+    .hero-headshot { justify-self: center; align-self: start; width: 260px; height: 260px; border-radius: 50%; overflow: hidden; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15); }
+    .hero-headshot img { display: block; width: 100%; height: 100%; object-fit: cover; }
+    @media (max-width: 900px) { .hero-headshot { grid-column: 1 / -1; margin: 0 auto 20px; width: 180px; height: 180px; } }
     
     /* Section headings */
     .section h2{ font-size: clamp(1.4rem, 3vw, 2rem); margin:0 0 12px; }
@@ -176,9 +176,6 @@
     <section class="hero">
       <div class="container hero-grid">
         <div class="reveal">
-          <div class="hero-headshot">
-            <img src="https://raw.githubusercontent.com/tuckerstrowlegal/tuckerstrowlegal.github.io/refs/heads/main/Headshot.jpeg" alt="Headshot of Tucker K. Strow" />
-          </div>
           <div class="eyebrow">Economic Damages Expert — Austin, TX</div>
           <h1 class="h1">Clear, defensible <span style="color:var(--primary)">economic analysis</span> for personal injury, wrongful death, and employment cases.</h1>
           <p class="lead">Objective reports, deposition support, and trial testimony grounded in accepted methods: lost earnings, earning capacity, fringe benefits, household services, and present value of future costs.</p>
@@ -191,6 +188,11 @@
             <strong>Typical matters:</strong> Personal injury • Wrongful death • Workers’ compensation • Employment disputes. Available across Texas state and federal courts.
           </div>
         </div>
+
+        <div class="hero-headshot">
+          <img src="https://raw.githubusercontent.com/tuckerstrowlegal/tuckerstrowlegal.github.io/refs/heads/main/Headshot.jpeg" alt="Headshot of Tucker K. Strow" />
+        </div>
+        
         <div class="reveal">
           <div class="card" aria-label="Highlights">
             <h3>What you can expect</h3>
