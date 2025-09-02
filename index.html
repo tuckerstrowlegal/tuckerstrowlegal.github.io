@@ -11,7 +11,8 @@
   <meta property="og:description" content="Clear, defensible economic damages analysis for PI, wrongful death, and employment cases. Reports • Depositions • Trial testimony." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://tucker***legal.com" />
-  <meta property="og:image" content="/og-image.png" />
+  <!-- Use a neutral, non-portrait OG image -->
+  <meta property="og:image" content="/og-card.png" />
   <meta name="twitter:card" content="summary_large_image" />
 
   <style>
@@ -20,18 +21,19 @@
        ===================== */
     :root{
       --bg: #ffffff;
-      --text: #111827; /* slate-900 */
-      --muted: #4b5563; /* gray-600 */
+      --text: #0f172a; /* slate-900 */
+      --muted: #475569; /* slate-600 */
       --primary: #0ea5e9; /* sky-500 */
       --primary-600: #0284c7; /* sky-600 */
       --accent: #22c55e; /* green-500 */
       --card: #f8fafc; /* slate-50 */
       --border: #e5e7eb; /* gray-200 */
       --shadow: 0 10px 30px rgba(2, 132, 199, 0.08);
+      --radius: 16px;
     }
     [data-theme="dark"]{
       --bg: #0b1220;
-      --text: #f3f4f6;
+      --text: #e5e7eb;
       --muted: #a1a1aa;
       --primary: #38bdf8;
       --primary-600: #0ea5e9;
@@ -44,11 +46,13 @@
     html, body { height: 100%; }
     body{
       margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
-      background: var(--bg); color: var(--text); line-height:1.6; 
+      background: var(--bg); color: var(--text); line-height:1.6;
+      text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
     }
     img{ max-width:100%; display:block; }
     a{ color: var(--primary); text-decoration: none; }
     a:hover{ text-decoration: underline; }
+    :focus-visible{ outline: 3px solid color-mix(in oklab, var(--primary) 35%, transparent); outline-offset: 2px; border-radius: 8px; }
 
     /* Layout */
     .container{ width:min(1100px, 92%); margin-inline:auto; }
@@ -61,16 +65,16 @@
     /* Header */
     header{
       position: sticky; top:0; z-index: 1000; backdrop-filter: saturate(1.3) blur(10px);
-      background: color-mix(in oklab, var(--bg) 85%, transparent);
+      background: color-mix(in oklab, var(--bg) 88%, transparent);
       border-bottom: 1px solid var(--border);
     }
     .nav{ display:flex; align-items:center; justify-content:space-between; padding:14px 0; }
-    .brand{ display:flex; align-items:center; gap:12px; font-weight:700; letter-spacing:.2px; }
+    .brand{ display:flex; align-items:center; gap:12px; font-weight:800; letter-spacing:.2px; }
     .brand svg{ width:28px; height:28px; }
     .nav-links{ display:flex; gap:22px; align-items:center; }
     .nav-links a{ color: var(--text); font-weight:600; opacity:.9; }
     .nav-links a[aria-current="page"], .nav-links a.active{ color: var(--primary); }
-    .btn{ display:inline-flex; align-items:center; gap:10px; border:none; border-radius:999px; padding:10px 16px; background: var(--primary); color:white; box-shadow: var(--shadow); cursor:pointer; font-weight:700; }
+    .btn{ display:inline-flex; align-items:center; gap:10px; border:none; border-radius:999px; padding:11px 18px; background: var(--primary); color:white; box-shadow: var(--shadow); cursor:pointer; font-weight:800; letter-spacing:.2px; }
     .btn:hover{ background: var(--primary-600); }
     .btn.secondary{ background: transparent; color: var(--text); border:1px solid var(--border); box-shadow: none; }
     .btn.secondary:hover{ border-color: var(--primary); color: var(--primary); }
@@ -87,79 +91,70 @@
     }
 
     /* Hero */
-    .hero{ padding: 90px 0 70px; }
+    .hero{ padding: 96px 0 70px; position: relative; isolation: isolate; }
+    /* Abstract, non-portrait visual background */
+    .hero::before{
+      content: ""; position:absolute; inset:0; z-index:-1;
+      background:
+        radial-gradient(1200px 600px at 10% -10%, color-mix(in oklab, var(--primary) 22%, transparent), transparent 60%),
+        radial-gradient(900px 450px at 110% 10%, color-mix(in oklab, var(--accent) 18%, transparent), transparent 55%);
+      mask: linear-gradient(#000 30%, transparent);
+      opacity:.55;
+    }
     .hero-grid{
       display:grid;
-      grid-template-columns: 1.6fr 0.9fr;         /* wider text, narrower right rail */
-      grid-template-areas:
-        "text photo"
-        "text highlights";                        /* headshot sits above highlights */
-      gap:32px;
-      align-items:start;
+      grid-template-columns: 1.25fr 0.85fr;
+      grid-template-areas: "text proof";
+      gap:32px; align-items:start;
     }
-    @media (max-width: 900px){
-      .hero-grid{
-        grid-template-columns: 1fr;
-        grid-template-areas:
-          "photo"
-          "text"
-          "highlights";
-      }
-    }
-    .eyebrow{ color: var(--primary); font-weight:800; letter-spacing:.6px; text-transform:uppercase; font-size:.85rem; }
-    .h1{ font-size: clamp(2rem, 4vw, 3rem); line-height:1.1; margin: 10px 0 14px; font-weight: 900; }
-    .lead{ color: var(--muted); font-size: clamp(1rem, 2vw, 1.1rem); }
-    .cta-row{ display:flex; flex-wrap:wrap; gap:12px; margin-top:20px; }
-    .hero-card{ background: var(--card); border:1px solid var(--border); padding:18px; border-radius:16px; }
-    .hero-headshot{
-      grid-area: photo;
-      justify-self:center;
-      align-self:start;
-      width: 260px;
-      height: 260px;
-      overflow: hidden;
-      box-shadow: 0 8px 24px rgba(0,0,0,.15);
-    }
-    .hero-headshot img{ width:100%; height:100%; object-fit:cover; }
-    @media (max-width: 900px){
-      .hero-headshot{
-        justify-self:center;
-        margin: 0 auto 10px;
-        width:180px; height:180px;
-      }
-    }
-
+    @media (max-width: 900px){ .hero-grid{ grid-template-columns: 1fr; grid-template-areas: "text" "proof"; } }
+    .eyebrow{ color: var(--primary); font-weight:900; letter-spacing:.6px; text-transform:uppercase; font-size:.85rem; }
+    .h1{ font-size: clamp(2.2rem, 4.4vw, 3.2rem); line-height:1.08; margin: 10px 0 14px; font-weight: 900; max-width: 42ch; }
+    .lead{ color: var(--muted); font-size: clamp(1rem, 2vw, 1.12rem); max-width: 60ch; }
+    .cta-row{ display:flex; flex-wrap:wrap; gap:12px; margin-top:22px; }
     .hero-text{ grid-area: text; }
-    .hero-highlights{ grid-area: highlights; }
-    .h1{ max-width: 42ch; }        /* optional: nicer line length */
-    .lead{ max-width: 60ch; } 
-    
+
+    .proof{ grid-area: proof; display:grid; gap:14px; }
+    .hero-card{ background: var(--card); border:1px solid var(--border); padding:18px; border-radius: var(--radius); }
+
     /* Section headings */
-    .section h2{ font-size: clamp(1.4rem, 3vw, 2rem); margin:0 0 12px; }
+    .section h2{ font-size: clamp(1.5rem, 3vw, 2rem); margin:0 0 12px; }
     .section p.lead{ margin-top:0; }
 
     /* Grids */
     .grid{ display:grid; gap:18px; }
     .grid.cols-3{ grid-template-columns: repeat(3, 1fr); }
     .grid.cols-2{ grid-template-columns: repeat(2, 1fr); }
-    @media (max-width: 900px){
-      .grid.cols-3{ grid-template-columns: 1fr; }
-      .grid.cols-2{ grid-template-columns: 1fr; }
-    }
+    @media (max-width: 900px){ .grid.cols-3, .grid.cols-2{ grid-template-columns: 1fr; } }
 
     /* Cards */
-    .card{ background: var(--card); border:1px solid var(--border); border-radius:16px; padding:22px; box-shadow: var(--shadow); }
-    .card h3{ margin-top:0; margin-bottom:8px; font-size:1.1rem; }
+    .card{ background: var(--card); border:1px solid var(--border); border-radius: var(--radius); padding:22px; box-shadow: var(--shadow); }
+    .card h3{ margin-top:0; margin-bottom:8px; font-size:1.12rem; }
     .card ul{ margin: 10px 0 0 18px; color: var(--muted); }
 
-    /* Sample Work */
+    /* Process Steps */
+    .steps{ counter-reset: step; }
+    .step{ position:relative; padding-left: 48px; }
+    .step::before{
+      counter-increment: step; content: counter(step);
+      position:absolute; left:0; top:2px; width:34px; height:34px; display:grid; place-items:center;
+      border-radius: 999px; background: var(--primary); color:#fff; font-weight:800; box-shadow: var(--shadow);
+    }
+
+    /* FAQ */
+    details{ border:1px solid var(--border); border-radius: var(--radius); padding:14px 16px; background: var(--card); }
+    details + details{ margin-top:12px; }
+    summary{ cursor:pointer; font-weight:700; }
+    summary::-webkit-details-marker{ display:none; }
+
+    /* Downloads */
     .downloads a{ display:inline-flex; align-items:center; gap:10px; padding:10px 14px; border:1px solid var(--border); border-radius:12px; text-decoration:none; }
     .downloads a:hover{ border-color: var(--primary); }
 
     /* Contact */
     form{ display:grid; gap:12px; }
     .field{ display:grid; gap:6px; }
-    .field label{ font-weight:700; font-size:.95rem; }
+    .field label{ font-weight:800; font-size:.95rem; }
     .field input, .field textarea{
       border:1px solid var(--border); background: var(--bg); color: var(--text); border-radius:12px; padding:12px 14px; font-size:1rem; outline:none;
     }
@@ -172,6 +167,11 @@
     /* Reveal Animations */
     .reveal{ opacity:0; transform: translateY(12px); transition: opacity .6s ease, transform .6s ease; }
     .reveal.visible{ opacity:1; transform:none; }
+    @media (prefers-reduced-motion: reduce){ .reveal{ opacity:1; transform:none; } *{ scroll-behavior:auto !important; } }
+
+    /* Sticky Mobile CTA */
+    .sticky-cta{ position: fixed; bottom: 16px; right: 16px; z-index: 999; display:none; }
+    @media (max-width: 900px){ .sticky-cta{ display:block; } }
   </style>
 </head>
 <body>
@@ -194,8 +194,10 @@
         <div class="nav-links" id="navLinks">
           <a href="#about">About</a>
           <a href="#services">Services</a>
-          <a href="#samples">Sample Work</a>
+          <a href="#process">Process</a>
+          <a href="#samples">Samples</a>
           <a href="#cv">CV</a>
+          <a href="#faq">FAQ</a>
           <a href="#contact">Contact</a>
           <button class="icon-btn" id="themeToggle" aria-label="Toggle theme">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9Z"/></svg>
@@ -224,12 +226,9 @@
           </div>
         </div>
 
-        <div class="hero-headshot">
-          <img src="https://raw.githubusercontent.com/tuckerstrowlegal/tuckerstrowlegal.github.io/refs/heads/main/Headshot.jpeg" alt="Headshot of Tucker K. Strow" />
-        </div>
-        
-        <div class="reveal hero-highlights">
-          <div class="card" aria-label="Highlights">
+        <!-- Replaces headshot with proof points (no personal images) -->
+        <aside class="reveal proof" aria-label="Highlights">
+          <div class="card">
             <h3>What you can expect</h3>
             <ul>
               <li>Neutral, comprehensible analysis built for juries and judges</li>
@@ -237,7 +236,16 @@
               <li>Timely communication; rigorous deposition & trial prep</li>
             </ul>
           </div>
-        </div>
+          <div class="card">
+            <h3>Method foundations</h3>
+            <ul>
+              <li>BLS employment & compensation data</li>
+              <li>BEA household production & services</li>
+              <li>U.S. Treasury yield curve (discounting)</li>
+              <li>Actuarial work‑life & life expectancy tables</li>
+            </ul>
+          </div>
+        </aside>
       </div>
     </section>
 
@@ -247,17 +255,16 @@
         <div class="reveal">
           <h2>About</h2>
           <p class="lead">I’m <strong>Tucker K. Strow</strong>, a forensic economist based in Austin, Texas. I have a Master's Degree in Financial Economics and I provide economic damages analyses for plaintiff and defense counsel in personal injury, wrongful death, and employment matters.</p>
-          <p>My work emphasizes clarity and defensibility: accepted data sources, methodical projections, and straightforward present‑value calculations. </p>
+          <p>My work emphasizes clarity and defensibility: accepted data sources, methodical projections, and straightforward present‑value calculations.</p>
           <p><em>Note:</em> Sample materials on this site are for demonstration only.</p>
         </div>
         <div class="reveal">
           <div class="card">
-            <h3>Method foundations</h3>
+            <h3>Credentials at a glance</h3>
             <ul>
-              <li>BLS Employment & Compensation Data</li>
-              <li>BEA Household Production & Services</li>
-              <li>U.S. Treasury Yield Curve (discounting)</li>
-              <li>Actuarial work‑life & life expectancy tables</li>
+              <li>Master's degree in Financial Economics — Utah State University</li>
+              <li>Forensic economics focus: PI, WD, Employment</li>
+              <li>Texas state & federal availability</li>
             </ul>
             <div style="height:12px"></div>
             <a class="btn" href="#cv">View CV</a>
@@ -298,6 +305,28 @@
               <li>Benefits & pension impacts</li>
               <li>Wage growth assumptions</li>
             </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Process -->
+    <section id="process" class="section" aria-labelledby="process-heading">
+      <div class="container">
+        <h2 id="process-heading">Process</h2>
+        <p class="lead">A streamlined, transparent workflow designed to minimize surprises and maximize defensibility.</p>
+        <div class="grid cols-3 steps" style="margin-top:18px">
+          <div class="card reveal step">
+            <h3>Intake & Scope</h3>
+            <p>Clarify claims, data needs, assumptions, and deadlines. Engagement letter and retainer secure calendar.</p>
+          </div>
+          <div class="card reveal step">
+            <h3>Analysis & Draft</h3>
+            <p>Forecast earnings, benefits, and household services; apply discounting and sensitivity checks.</p>
+          </div>
+          <div class="card reveal step">
+            <h3>Final & Testimony</h3>
+            <p>Deliver report with cited sources. Prepare for deposition and trial with clear exhibits.</p>
           </div>
         </div>
       </div>
@@ -348,12 +377,41 @@
         </div>
         <div class="reveal">
           <div class="card">
-            <h3>Credentials at a glance</h3>
+            <h3>Affiliations & Coverage</h3>
             <ul>
-              <li>Master's degree in Financial Economics — Utah State University</li>
-              <li>Forensic economics focus: PI, WD, Employment</li>
-              <li>Texas state & federal availability</li>
+              <li>Available for Texas state & federal matters</li>
+              <li>PI, WD, employment disputes</li>
+              <li>Remote or in‑person testimony on request</li>
             </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="section" aria-labelledby="faq-heading">
+      <div class="container">
+        <h2 id="faq-heading">Frequently Asked Questions</h2>
+        <div class="grid cols-2" style="margin-top:18px">
+          <div class="reveal">
+            <details>
+              <summary>What information do you need to begin?</summary>
+              <p>Complaint or petition, basic facts, employment history, wage/benefit detail, and any medical/vocational evaluations available.</p>
+            </details>
+            <details>
+              <summary>How are assumptions handled?</summary>
+              <p>All key assumptions (growth, discounting, mitigation) are stated explicitly with source citations and sensitivity ranges as needed.</p>
+            </details>
+          </div>
+          <div class="reveal">
+            <details>
+              <summary>Do you work on both plaintiff and defense matters?</summary>
+              <p>Yes. Analyses are neutral and designed to be understood by judges and juries regardless of party.</p>
+            </details>
+            <details>
+              <summary>What are typical timelines?</summary>
+              <p>Drafts are commonly delivered within agreed timelines based on discovery and data availability. Rush options may be available.</p>
+            </details>
           </div>
         </div>
       </div>
@@ -384,7 +442,7 @@
             </div>
             <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
               <button class="btn" type="submit">Send Inquiry</button>
-              <a class="btn secondary" href="mailto:strowforensicconsulting@gmail.com?subject=Damages%20Inquiry">Email Directly</a>
+              <a class="btn secondary" id="mailtoDirect" href="mailto:strowforensicconsulting@gmail.com?subject=Damages%20Inquiry">Email Directly</a>
               <a class="btn secondary" id="calendlyLink" href="#">Schedule a Call</a>
             </div>
             <p id="formNote" style="margin:8px 0 0; color:var(--muted); font-size:.95rem;">Your message opens in your email client; no information is stored on this site.</p>
@@ -393,15 +451,15 @@
         <div class="reveal">
           <div class="card">
             <h3>Direct</h3>
-            <p>
+            <address style="font-style:normal">
               Phone: <a href="tel:+15125551234">(512) 555‑1234</a><br>
               Email: <a href="mailto:strowforensicconsulting@gmail.com">strowforensicconsulting@gmail.com</a><br>
               Location: Austin, Texas
-            </p>
+            </address>
             <h3>Engagement</h3>
             <ul>
               <li>Hourly billing at $200/hr. Deposition billed at $350/hr</li>
-              <li>$1,000 Retainer required to begin work</li>
+              <li>$1,000 retainer required to begin work</li>
               <li>Rush options available upon request</li>
             </ul>
           </div>
@@ -419,6 +477,9 @@
     </div>
   </footer>
 
+  <!-- Floating CTA (mobile) -->
+  <a class="btn sticky-cta" href="#contact" aria-label="Request a consultation (mobile)">Consultation</a>
+
   <!-- JSON-LD Schema -->
   <script type="application/ld+json" id="schema">
   {
@@ -427,19 +488,12 @@
     "name": "Tucker K. Strow, M.S. — Forensic Economist",
     "description": "Economic damages expert providing analyses for personal injury, wrongful death, and employment matters. Reports, depositions, trial testimony.",
     "url": "https://tucker***legal.com",
-    "image": "https://tucker***legal.com/og-image.png",
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Austin",
-      "addressRegion": "TX",
-      "addressCountry": "US"
-    },
+    "image": "https://tucker***legal.com/og-card.png",
+    "address": { "@type": "PostalAddress", "addressLocality": "Austin", "addressRegion": "TX", "addressCountry": "US" },
     "areaServed": "TX",
     "telephone": "+1-512-555-1234",
-    "email": "tucker.strow@email.com",
-    "sameAs": [
-      "https://www.linkedin.com/in/your-profile"
-    ]
+    "email": "strowforensicconsulting@gmail.com",
+    "sameAs": [ "https://www.linkedin.com/in/your-profile" ]
   }
   </script>
 
@@ -447,6 +501,9 @@
     // ====== Utilities ======
     const $ = (sel, ctx=document) => ctx.querySelector(sel);
     const $$ = (sel, ctx=document) => Array.from(ctx.querySelectorAll(sel));
+
+    // ====== Constants (one source of truth) ======
+    const CONTACT_EMAIL = 'strowforensicconsulting@gmail.com';
 
     // ====== Year ======
     $('#year').textContent = new Date().getFullYear();
@@ -486,7 +543,7 @@
       });
     });
 
-    const sections = ['about','services','samples','cv','contact'].map(id => $('#'+id));
+    const sections = ['about','services','process','samples','cv','faq','contact'].map(id => $('#'+id));
     const navAnchors = $$('#navLinks a');
     const spy = new IntersectionObserver((entries)=>{
       entries.forEach(entry=>{
@@ -496,7 +553,7 @@
         }
       });
     }, { rootMargin: '-40% 0px -55% 0px', threshold: 0 });
-    sections.forEach(sec => spy.observe(sec));
+    sections.forEach(sec => sec && spy.observe(sec));
 
     // ====== Reveal Animations ======
     const rev = new IntersectionObserver((entries)=>{
@@ -525,11 +582,10 @@
       ].filter(Boolean).join('%0D%0A');
       const subject = encodeURIComponent(`Damages Inquiry — ${name}${firm ? ' ('+firm+')' : ''}`);
       const body = lines;
-      window.location.href = `mailto:tucker.strow@email.com?subject=${subject}&body=${body}`;
+      window.location.href = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
     });
 
-    // ====== Replace placeholders (edit these after deployment) ======
-    // Update these to your actual file URLs once hosted
+    // ====== Replace placeholders (edit after deployment) ======
     const SAMPLE_REPORT_URL = '#'; // e.g., '/downloads/sample-report-tucker-strow.pdf'
     const SERVICE_SHEET_URL = '#'; // e.g., '/downloads/services-overview-tucker-strow.pdf'
     const CV_URL = '#';            // e.g., '/downloads/tucker-strow-cv.pdf'
@@ -539,6 +595,10 @@
     $('#serviceSheetLink').setAttribute('href', SERVICE_SHEET_URL);
     $('#cvLink').setAttribute('href', CV_URL);
     $('#calendlyLink').setAttribute('href', CALENDLY_URL);
+
+    // Keep the direct email link in sync with CONTACT_EMAIL
+    const mailtoDirect = $('#mailtoDirect');
+    mailtoDirect?.setAttribute('href', `mailto:${CONTACT_EMAIL}?subject=Damages%20Inquiry`);
   </script>
 </body>
 </html>
